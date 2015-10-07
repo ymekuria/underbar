@@ -38,6 +38,13 @@
   // Like first, but for the last elements. If n is undefined, return just the
   // last element.
   _.last = function(array, n) {
+    //TODO: Find a better way to do this with ternary's
+      
+      /*If n is undefined, the last element is returned.
+       *Else if n is less than the length of the array, the last n elements are returned.
+       *Else the original array is returned.
+      */ 
+      return n === undefined ? array[array.length-1] : (n <= array.length ? array.slice(array.length - n) : array);
   };
 
   // Call iterator(value, key, collection) for each element of collection.
@@ -46,6 +53,20 @@
   // Note: _.each does not have a return value, but rather simply runs the
   // iterator function over each item in the input collection.
   _.each = function(collection, iterator) {
+    //First check if collection is an array.
+    if (Array.isArray(collection)) {
+      //if it's an array, iterate over collection using a for loop invoking the iterator on each element.
+      for(var i = 0; i < collection.length; i++) {
+        //Invoke the iterator with the element index and collection.
+        iterator(collection[i], i, collection);
+      }
+    }
+      //Iterate using for in loop if collection is an object,
+    else {
+      for (var key in collection) {
+        iterator(collection[key], key, collection);
+      }
+    }  
   };
 
   // Returns the index at which value can be found in the array, or -1 if value
