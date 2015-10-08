@@ -115,6 +115,18 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    var result = [];
+    
+    //Iterate through the collection
+    _.each(array, function(item, index, array) {
+      //Using indexOf to test if the item is in the result array.
+      //If number is not in the result, push it to the result array.
+      if (_.indexOf(result, item) === -1) {
+        result.push(item);
+      }
+    });
+    
+    return result;
   };
 
 
@@ -175,15 +187,11 @@
     //First checking to see if accumulator is passed in.
     var noAccumulator = arguments.length < 3 ? true : false;
     
-    //var memo = accumulator;
-    
-    
     //Iterating throught the collection invoking the iterator on each item and the result of the previous function call.
     _.each(collection, function(current) {
 
-      //If no accumulator is passed, the iteretor is not called and the memo is set to the first element of the collection.
-      if(noAccumulator) {
-        //memo = collection[0];
+      //If no accumulator is intialy passed, the iteretor is not called and the acummulator is set to the first element of the collection.
+      if (noAccumulator) {
         accumulator = collection[0];
 
         //noAccumulator set to false so the else conditonal is executed for the rest of the iterations.
@@ -191,8 +199,6 @@
       }
 
       else {
-
-        //memo = iterator(memo, current);
         accumulator = iterator(accumulator, current);
       }
     });
