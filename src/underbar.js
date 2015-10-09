@@ -125,7 +125,7 @@
         result.push(item);
       }
     });
-    
+
     return result;
   };
 
@@ -225,6 +225,26 @@
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
+
+    //This conditional executes if a callback is not passed to _.every.
+    if (arguments.length === 1) {
+      return _.reduce(collection, function(memo,current) {
+        //this will return false if there are any false values in the collection.
+        return memo && current;
+      },true);
+    }
+
+    else {
+      return _.reduce(collection, function(memo, current) {
+        if (iterator(current)) {
+          return memo && true;
+        }
+        else {
+          return memo && false;
+
+        }
+      },true)
+    }
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
