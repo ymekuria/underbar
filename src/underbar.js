@@ -250,8 +250,16 @@
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
+    
     // TIP: There's a very clever way to re-use every() here.
-  };
+
+   if (collection.length === 0) {
+    return false; 
+   } 
+
+
+  };  
+     
 
 
   /**
@@ -273,6 +281,22 @@
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
+
+    //Creating a variable refrencing the passed in arguments for use in _.each below.   
+    var argArr = arguments;  
+   
+    //Iterating through all the arguments passed in except the object to be extended.
+    for (var i = 1; i<arguments.length;i++){
+
+      //Iterating through each object passed as an argument.
+      _.each(argArr[i], function(value, key) {
+          
+          //Adding each key value pair from the argument object to the orginal object to be extended.
+          obj[key] = value;
+        });     
+    }
+    return obj;
+
   };
 
   // Like extend, but doesn't ever overwrite a key that already
