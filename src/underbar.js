@@ -283,10 +283,10 @@
   _.extend = function(obj) {
 
     //Creating a variable refrencing the passed in arguments for use in _.each below.   
-    var argArr = arguments;  
+    var argArr = arguments; 
    
     //Iterating through all the arguments passed in except the object to be extended.
-    for (var i = 1; i<arguments.length;i++){
+    for (var i = 1; i<argArr.length;i++){
 
       //Iterating through each object passed as an argument.
       _.each(argArr[i], function(value, key) {
@@ -302,6 +302,25 @@
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
+
+    //Creating a variable that references arguments for use below
+    var argArr = arguments;
+
+    //Iterating through all the arguments except the first one.
+    for (var i = 1; i < argArr.length; i++) {
+
+      //Iterating through each object passed as an argument.
+      _.each(argArr[i], function(argValue, argKey) {
+
+        //Using _.every to test if each argument property exists in the original objected passed in.  
+        if (_.every(obj, function(objValue, objKey) {objKey !== argKey;})) {
+                  
+          //The property is added to the original object if it doesn't already exist in the object.
+          obj[argKey] = argValue;  
+        }                          
+      });     
+    }
+    return obj;
   };
 
 
