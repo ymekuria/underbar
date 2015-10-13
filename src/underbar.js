@@ -395,6 +395,35 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+    
+    var result = [];
+    var ranNumArr = [];
+    var arrLength = array.length;
+   
+    //
+    _.each(array, function(item, index) {
+
+      //Random number between 0 and the last index number of the input array.
+      var ranNum = Math.floor(Math.random()*arrLength);
+     
+      //Testing if the random number exists in the random number array.
+      if (_.indexOf(ranNumArr,ranNum) !== -1) {
+        
+        //This regenerates a new random number until it is uniuque in the random number array.
+        while(_.indexOf(ranNumArr,ranNum) !== -1) {
+          ranNum = Math.floor(Math.random()*arrLength);
+        }
+      }
+
+      ranNumArr.push(ranNum);
+
+    });
+
+    _.map(ranNumArr,function(num,numIndex) {
+      result[num] = array[numIndex];
+    });
+   
+    return result;
   };
 
 
