@@ -249,15 +249,32 @@
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
-  _.some = function(collection, iterator) {
-    
-    // TIP: There's a very clever way to re-use every() here.
 
-   if (collection.length === 0) {
-    return false; 
-   } 
+  //**TODO - refactor using every.
+  _.some = function(collection, iterator) { 
 
+    //Returns false if the collection is empty or undefined. 
+    if((collection.length === 0) | (collection.length === undefined)) {
+      return false;
+    } 
 
+    /*Using _.filter to create an array of items from the collection that pass a truth test(iterator).
+     *If no itereator is given, filter evaluates every item in the collection to a boolean passing all truthy items to the new array.
+     */
+    var filterdArr = arguments.length === 2 ? 
+      (_.filter(collection, function(item) {
+        return iterator(item);}))
+      : (_.filter(collection, function(item) {
+      return !!item;}))
+     
+     //True is returned if anything in the collection passes the truth test. 
+     if (filterdArr.length > 0) {
+       return true;
+     }
+
+     else {
+       return false;
+     }
   };  
      
 
@@ -364,6 +381,8 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+
+
   };
 
   // Delays a function for the given number of milliseconds, and then calls
@@ -394,6 +413,8 @@
   // TIP: This function's test suite will ask that you not modify the original
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
+
+  //**TODO - refactor chaining methods.
   _.shuffle = function(array) {
     
     var result = [];
