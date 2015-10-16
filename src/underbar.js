@@ -372,7 +372,7 @@
     };
   };
 
-  // Memorize an expensive function's results by storing them. You may assume
+  // Memoize an expensive function's results by storing them. You may assume
   // that the function only takes primitives as arguments.
   // memoize could be renamed to oncePerUniqueArgumentList; memoize does the
   // same thing as once, but based on many sets of unique arguments.
@@ -382,7 +382,33 @@
   // instead if possible.
   _.memoize = function(func) {
 
+    //This object will store the arguments passed into the function, and the result of invoking the function with those arguments.
+    var cache = {};
+    var resultFunc;
+     
+    return function() {
+      
+      //This converts the arguments array like object to an array.
+      var args = Array.prototype.slice.call(arguments);
 
+      //Converting the arguments array to a string for use in comparison and the cache object.
+      var argKey = args.toString();
+      
+      //This conditonal tests if the arguments for the given function exists in the cache object.     
+      if(cache[argKey] === undefined) {
+        
+        //If not, the arguments and result of the function call are stored in the cache object and the result is returned.
+        resultFunc = func.apply(this,arguments);
+        cache[argKey] = resultFunc; 
+        return resultFunc;
+      }
+
+      //If the arguments exist in the cache, the result from the cache is returned and the function is not invoked.
+      else {
+        return cache[argKey];
+      }
+    }
+    return resultFunc;
   };
 
   // Delays a function for the given number of milliseconds, and then calls
@@ -482,11 +508,14 @@
   // Hint: Use Array.isArray to check if something is an array
   _.flatten = function(nestedArray, result) {
 
+
   };
 
   // Takes an arbitrary number of arrays and produces an array that contains
   // every item shared between all the passed-in arrays.
   _.intersection = function() {
+
+
   };
 
   // Take the difference between one array and a number of other arrays.
